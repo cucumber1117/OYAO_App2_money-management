@@ -1,0 +1,66 @@
+.settings-page {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 24px;
+  background-color: #f5f6fa;
+}
+
+.settings-card {
+  background-color: white;
+  padding: 20px;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.settings-card h1,
+.settings-card h2 {
+  margin-top: 0;
+}
+
+.app-description {
+  color: #555;
+}
+
+.setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toggle-button {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 20px;
+  background-color: #ddd;
+  cursor: pointer;
+}
+
+.settings-button {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: #4a90e2;
+  color: white;
+  cursor: pointer;
+}
+
+.settings-button.danger {
+  background-color: #e74c3c;
+}
+
+.input-label {
+  display: block;
+  margin-top: 12px;
+}
+
+.input-label input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
