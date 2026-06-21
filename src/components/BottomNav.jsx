@@ -1,19 +1,25 @@
 const navItems = [
-  { page: 'home', label: 'ホーム', href: '#home' },
-  { page: 'add', label: '入力', href: '#add' },
-  { page: 'list', label: '一覧', href: '#list' },
-  { page: 'category', label: 'カテゴリ', href: '#category' },
-  { page: 'settings', label: '設定', href: '#settings' },
+  { path: '/', label: 'ホーム' },
+  { path: '/add', label: '入力' },
+  { path: '/list', label: '一覧' },
+  { path: '/category', label: 'カテゴリ' },
+  { path: '/settings', label: '設定' },
 ]
 
-function BottomNav({ currentPage }) {
+function BottomNav({ currentPath, onNavigate }) {
+  function handleClick(event, path) {
+    event.preventDefault()
+    onNavigate(path)
+  }
+
   return (
     <nav className="bottom-nav" aria-label="メインメニュー">
       {navItems.map((item) => (
         <a
-          key={item.page}
-          className={currentPage === item.page ? 'active' : ''}
-          href={item.href}
+          key={item.path}
+          className={currentPath === item.path ? 'active' : ''}
+          href={item.path}
+          onClick={(event) => handleClick(event, item.path)}
         >
           {item.label}
         </a>

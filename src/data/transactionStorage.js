@@ -1,6 +1,27 @@
-const STORAGE_KEY = 'money-app-transactions'
+const STORAGE_KEY = 'money-manager-transactions'
 
-// localStorageから登録データを読み込みます。
+function getTodayText() {
+  const today = new Date()
+  const year = today.getFullYear()
+  const month = String(today.getMonth() + 1).padStart(2, '0')
+  const date = String(today.getDate()).padStart(2, '0')
+
+  return `${year}-${month}-${date}`
+}
+
+function normalizeTransaction(transaction) {
+  // 保存する形をここでそろえると、各ページ側のコードがシンプルになります。
+  return {
+    id: transaction.id || Date.now().toString(),
+    type: transaction.type === 'income' ? 'income' : 'expense',
+    amount: Number(transaction.amount) || 0,
+    category: transaction.category || 'その他',
+    date: transaction.date || getTodayText(),
+    memo: transaction.memo || '',
+  }
+}
+
+// localStorageから取引データを読み込みます。
 export function getTransactions() {
   const savedData = localStorage.getItem(STORAGE_KEY)
 
@@ -9,24 +30,24 @@ export function getTransactions() {
   }
 
   try {
-    return JSON.parse(savedData)
+    const transactions = JSON.parse(savedData)
+    return Array.isArray(transactions) ? transactions : []
   } catch {
+    // JSONが壊れていても、アプリが落ちないように空配列を返します。
     return []
   }
 }
 
-function saveTransactions(transactions) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(transactions))
+// 取引データ配列をlocalStorageに保存します。
+export function saveTransactions(transactions) {
+  const safeTransactions = Array.isArray(transactions) ? transactions : []
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(safeTransactions))
 }
 
 // 新しい収入・支出データを追加します。
 export function addTransaction(transaction) {
   const transactions = getTransactions()
-  const newTransaction = {
-    ...transaction,
-    id: transaction.id || crypto.randomUUID(),
-    amount: Number(transaction.amount),
-  }
+  const newTransaction = normalizeTransaction(transaction)
 
   saveTransactions([newTransaction, ...transactions])
   return newTransaction
@@ -50,12 +71,11 @@ export function updateTransaction(id, updatedTransaction) {
       return transaction
     }
 
-    return {
+    return normalizeTransaction({
       ...transaction,
       ...updatedTransaction,
       id,
-      amount: Number(updatedTransaction.amount ?? transaction.amount),
-    }
+    })
   })
 
   saveTransactions(updatedTransactions)
@@ -67,19 +87,30 @@ export function getMonthlySummary(year, month) {
   const targetMonth = String(month).padStart(2, '0')
   const targetDateText = `${year}-${targetMonth}`
 
-  return transactions
-    .filter((transaction) => transaction.date.startsWith(targetDateText))
+  const summary = transactions
+    .filter((transaction) => transaction.date?.startsWith(targetDateText))
     .reduce(
-      (summary, transaction) => {
+      (currentSummary, transaction) => {
+        const amount = Number(transaction.amount) || 0
+
         if (transaction.type === 'income') {
-          summary.income += transaction.amount
+          currentSummary.income += amount
         } else {
-          summary.expense += transaction.amount
+          currentSummary.expense += amount
         }
 
-        summary.balance = summary.income - summary.expense
-        return summary
+        return currentSummary
       },
       { income: 0, expense: 0, balance: 0 },
     )
+
+  summary.balance = summary.income - summary.expense
+  return summary
+}
+
+// 最近の取引を日付が新しい順に並べ、指定件数だけ返します。
+export function getRecentTransactions(limit = 5) {
+  return [...getTransactions()]
+    .sort((a, b) => b.date.localeCompare(a.date))
+    .slice(0, limit)
 }

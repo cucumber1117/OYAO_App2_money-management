@@ -9,31 +9,35 @@ import Settings from './pages/Settings'
 import './App.css'
 
 const routes = {
-  home: Home,
-  add: AddTransaction,
-  list: TransactionList,
-  category: Category,
-  settings: Settings,
+  '/': Home,
+  '/add': AddTransaction,
+  '/list': TransactionList,
+  '/category': Category,
+  '/settings': Settings,
 }
 
-function getPageFromHash() {
-  const page = window.location.hash.replace('#', '')
-  return routes[page] ? page : 'home'
+function getCurrentPath() {
+  return routes[window.location.pathname] ? window.location.pathname : '/'
 }
 
 function App() {
-  const [currentPage, setCurrentPage] = useState(getPageFromHash)
+  const [currentPath, setCurrentPath] = useState(getCurrentPath)
+
+  function navigate(path) {
+    window.history.pushState({}, '', path)
+    setCurrentPath(getCurrentPath())
+  }
 
   useEffect(() => {
-    const handleHashChange = () => {
-      setCurrentPage(getPageFromHash())
+    const handlePopState = () => {
+      setCurrentPath(getCurrentPath())
     }
 
-    window.addEventListener('hashchange', handleHashChange)
-    return () => window.removeEventListener('hashchange', handleHashChange)
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
   }, [])
 
-  const CurrentPageComponent = routes[currentPage]
+  const CurrentPageComponent = routes[currentPath]
 
   return (
     <div className="app-shell">
@@ -41,7 +45,7 @@ function App() {
       <main className="app-main">
         <CurrentPageComponent />
       </main>
-      <BottomNav currentPage={currentPage} />
+      <BottomNav currentPath={currentPath} onNavigate={navigate} />
     </div>
   )
 }

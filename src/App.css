@@ -82,12 +82,14 @@
 }
 
 .summary-card.income strong,
-.type-label.income {
+.type-label.income,
+.recent-item strong.income {
   color: #047857;
 }
 
 .summary-card.expense strong,
-.type-label.expense {
+.type-label.expense,
+.recent-item strong.expense {
   color: #dc2626;
 }
 
@@ -153,13 +155,59 @@ button:hover {
   margin: 0;
 }
 
+.notice-text {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-radius: 8px;
+  color: #9a3412;
+  font-size: 14px;
+  margin: 14px 0 0;
+  padding: 12px 14px;
+}
+
+.recent-section {
+  margin-top: 24px;
+}
+
+.section-heading {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.section-heading h3 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.section-heading a {
+  color: #2563eb;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.empty-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  color: #6b7280;
+  margin: 0;
+  padding: 18px;
+  text-align: center;
+}
+
 .transaction-list,
-.category-list {
+.category-list,
+.recent-list {
   display: grid;
   gap: 10px;
 }
 
-.transaction-item {
+.transaction-item,
+.recent-item {
   padding: 14px;
   display: grid;
   gap: 12px;
@@ -174,6 +222,30 @@ button:hover {
   color: #6b7280;
   font-size: 14px;
   margin: 0;
+}
+
+.recent-item {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  align-items: center;
+  grid-template-columns: 1fr auto;
+}
+
+.recent-item h4 {
+  font-size: 16px;
+  margin: 6px 0 2px;
+}
+
+.recent-item p {
+  color: #6b7280;
+  font-size: 13px;
+  margin: 0;
+}
+
+.recent-item strong {
+  font-size: 15px;
+  white-space: nowrap;
 }
 
 .type-label {
