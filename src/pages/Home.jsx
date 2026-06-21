@@ -28,6 +28,12 @@ function Home() {
         <h2>今月のまとめ</h2>
       </div>
 
+      <div className="balance-panel">
+        <span>今月の残高</span>
+        <strong>{formatMoney(summary.balance)}</strong>
+        <p>収入から支出を引いた金額です</p>
+      </div>
+
       <div className="summary-grid">
         <div className="summary-card income">
           <span>収入</span>

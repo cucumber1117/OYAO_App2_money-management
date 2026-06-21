@@ -1,6 +1,6 @@
 .app-shell {
   min-height: 100svh;
-  background: #f6f7f9;
+  background: #f4f6f8;
   color: #1f2937;
   display: flex;
   flex-direction: column;
@@ -9,7 +9,7 @@
 .header {
   background: #ffffff;
   border-bottom: 1px solid #e5e7eb;
-  padding: 18px 20px;
+  padding: 16px 20px;
   position: sticky;
   top: 0;
   z-index: 10;
@@ -31,7 +31,7 @@
 .app-main {
   width: min(100%, 760px);
   margin: 0 auto;
-  padding: 24px 16px 96px;
+  padding: 22px 16px 104px;
   box-sizing: border-box;
   flex: 1;
 }
@@ -41,13 +41,41 @@
 }
 
 .page-title {
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 
 .page-title h2 {
-  font-size: 24px;
+  font-size: 25px;
   line-height: 1.25;
   margin: 4px 0 0;
+}
+
+.balance-panel {
+  background: #1f2937;
+  border-radius: 8px;
+  color: #ffffff;
+  margin-bottom: 12px;
+  padding: 20px;
+}
+
+.balance-panel span {
+  color: #cbd5e1;
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.balance-panel strong {
+  display: block;
+  font-size: 32px;
+  line-height: 1.1;
+}
+
+.balance-panel p {
+  color: #d1d5db;
+  font-size: 13px;
+  margin: 10px 0 0;
 }
 
 .summary-grid {
@@ -63,13 +91,15 @@
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
 }
 
 .summary-card {
-  padding: 18px;
+  padding: 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  min-height: 76px;
 }
 
 .summary-card span {
@@ -78,7 +108,8 @@
 }
 
 .summary-card strong {
-  font-size: 22px;
+  font-size: 20px;
+  line-height: 1.15;
 }
 
 .summary-card.income strong,
@@ -161,12 +192,12 @@ button:hover {
   border-radius: 8px;
   color: #9a3412;
   font-size: 14px;
-  margin: 14px 0 0;
+  margin: 12px 0 0;
   padding: 12px 14px;
 }
 
 .recent-section {
-  margin-top: 24px;
+  margin-top: 26px;
 }
 
 .section-heading {
@@ -174,7 +205,7 @@ button:hover {
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .section-heading h3 {
@@ -195,7 +226,7 @@ button:hover {
   border-radius: 8px;
   color: #6b7280;
   margin: 0;
-  padding: 18px;
+  padding: 22px 18px;
   text-align: center;
 }
 
@@ -208,7 +239,7 @@ button:hover {
 
 .transaction-item,
 .recent-item {
-  padding: 14px;
+  padding: 15px;
   display: grid;
   gap: 12px;
 }
@@ -230,10 +261,11 @@ button:hover {
   border-radius: 8px;
   align-items: center;
   grid-template-columns: 1fr auto;
+  min-height: 74px;
 }
 
 .recent-item h4 {
-  font-size: 16px;
+  font-size: 17px;
   margin: 6px 0 2px;
 }
 
@@ -244,13 +276,24 @@ button:hover {
 }
 
 .recent-item strong {
-  font-size: 15px;
+  font-size: 16px;
   white-space: nowrap;
 }
 
 .type-label {
+  border-radius: 999px;
+  display: inline-flex;
   font-size: 12px;
   font-weight: 700;
+  padding: 2px 8px;
+}
+
+.type-label.income {
+  background: #ecfdf5;
+}
+
+.type-label.expense {
+  background: #fef2f2;
 }
 
 .transaction-actions {
@@ -321,7 +364,7 @@ button:hover {
   color: #6b7280;
   font-size: 12px;
   font-weight: 700;
-  padding: 12px 4px;
+  padding: 13px 4px 14px;
   text-align: center;
   text-decoration: none;
 }
@@ -340,6 +383,10 @@ button:hover {
     align-items: flex-start;
     flex-direction: column;
     gap: 12px;
+  }
+
+  .balance-panel {
+    padding: 24px;
   }
 
   .transaction-item {
