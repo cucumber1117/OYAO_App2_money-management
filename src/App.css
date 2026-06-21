@@ -1,0 +1,281 @@
+.app-shell {
+  min-height: 100svh;
+  background: #f6f7f9;
+  color: #1f2937;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 18px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header h1 {
+  font-size: 22px;
+  line-height: 1.2;
+  margin: 4px 0 0;
+}
+
+.header-label,
+.page-title p {
+  color: #6b7280;
+  font-size: 13px;
+  margin: 0;
+}
+
+.app-main {
+  width: min(100%, 760px);
+  margin: 0 auto;
+  padding: 24px 16px 96px;
+  box-sizing: border-box;
+  flex: 1;
+}
+
+.page {
+  text-align: left;
+}
+
+.page-title {
+  margin-bottom: 18px;
+}
+
+.page-title h2 {
+  font-size: 24px;
+  line-height: 1.25;
+  margin: 4px 0 0;
+}
+
+.summary-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.summary-card,
+.transaction-item,
+.category-item,
+.settings-list,
+.form {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.summary-card {
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.summary-card span {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.summary-card strong {
+  font-size: 22px;
+}
+
+.summary-card.income strong,
+.type-label.income {
+  color: #047857;
+}
+
+.summary-card.expense strong,
+.type-label.expense {
+  color: #dc2626;
+}
+
+.summary-card.balance strong {
+  color: #2563eb;
+}
+
+.form {
+  padding: 16px;
+  display: grid;
+  gap: 14px;
+}
+
+.form label {
+  color: #374151;
+  display: grid;
+  font-size: 14px;
+  font-weight: 700;
+  gap: 6px;
+}
+
+input,
+select,
+textarea,
+button {
+  font: inherit;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  box-sizing: border-box;
+  color: #111827;
+  padding: 11px 12px;
+}
+
+textarea {
+  min-height: 86px;
+  resize: vertical;
+}
+
+button {
+  background: #2563eb;
+  border: 0;
+  border-radius: 6px;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 700;
+  padding: 12px 14px;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+.form-message,
+.empty-text {
+  color: #4b5563;
+  margin: 0;
+}
+
+.transaction-list,
+.category-list {
+  display: grid;
+  gap: 10px;
+}
+
+.transaction-item {
+  padding: 14px;
+  display: grid;
+  gap: 12px;
+}
+
+.transaction-item h3 {
+  font-size: 18px;
+  margin: 6px 0 2px;
+}
+
+.transaction-item p {
+  color: #6b7280;
+  font-size: 14px;
+  margin: 0;
+}
+
+.type-label {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.transaction-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.transaction-actions button {
+  background: #fee2e2;
+  color: #b91c1c;
+  padding: 8px 12px;
+}
+
+.transaction-actions button:hover {
+  background: #fecaca;
+}
+
+.category-item,
+.setting-row {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.category-item {
+  padding: 14px 16px;
+}
+
+.category-item span {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.settings-list {
+  overflow: hidden;
+}
+
+.setting-row {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 14px 16px;
+}
+
+.setting-row:last-child {
+  border-bottom: 0;
+}
+
+.setting-row input,
+.setting-row select {
+  width: auto;
+}
+
+.bottom-nav {
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  left: 0;
+  position: fixed;
+  right: 0;
+  z-index: 20;
+}
+
+.bottom-nav a {
+  color: #6b7280;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 12px 4px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.bottom-nav a.active {
+  color: #2563eb;
+  background: #eff6ff;
+}
+
+@media (min-width: 640px) {
+  .summary-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .summary-card {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .transaction-item {
+    align-items: center;
+    grid-template-columns: 1fr auto;
+  }
+
+  .transaction-actions {
+    min-width: 180px;
+  }
+}
