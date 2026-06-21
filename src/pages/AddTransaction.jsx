@@ -1,111 +1,142 @@
-import { useState } from 'react'
-import { addTransaction } from '../data/transactionStorage'
-
-const defaultForm = {
-  type: 'expense',
-  amount: '',
-  category: '食費',
-  date: new Date().toISOString().slice(0, 10),
-  memo: '',
-}
-
-const categories = ['食費', '交通費', '日用品', '給料', '趣味', 'その他']
+import React, { useState } from "react";
+import { addTransaction } from "../data/transactionStorage";
 
 function AddTransaction() {
-  // 入力画面担当者は、フォームの見た目や項目をこのファイルで編集してください。
-  const [form, setForm] = useState(defaultForm)
-  const [message, setMessage] = useState('')
+  // 収入・支出の状態管理
+  const [type, setType] = useState("expense");
 
-  function handleChange(event) {
-    const { name, value } = event.target
-    setForm((currentForm) => ({ ...currentForm, [name]: value }))
-  }
+  // 金額の状態管理
+  const [amount, setAmount] = useState("");
 
-  function handleSubmit(event) {
-    event.preventDefault()
+  // カテゴリの状態管理
+  const [category, setCategory] = useState("");
 
-    if (!form.amount || Number(form.amount) <= 0) {
-      setMessage('金額を入力してください。')
-      return
+  // 日付の状態管理
+  const [date, setDate] = useState("");
+
+  // メモの状態管理
+  const [memo, setMemo] = useState("");
+
+  // 追加ボタンが押されたときの処理
+  const handleSubmit = () => {
+    // 金額が入力されていない場合
+    if (!amount) {
+      alert("金額を入力してください");
+      return;
     }
 
-    addTransaction({
-      type: form.type,
-      amount: Number(form.amount),
-      category: form.category,
-      date: form.date,
-      memo: form.memo,
-    })
+    // 登録するデータを作成
+    const transaction = {
+      // 一意のIDを作成
+      id: Date.now().toString(),
 
-    setForm({ ...defaultForm, date: new Date().toISOString().slice(0, 10) })
-    setMessage('登録しました。')
-  }
+      // 収入 or 支出
+      type,
+
+      // 金額を数値に変換
+      amount: Number(amount),
+
+      // カテゴリ
+      category,
+
+      // 日付
+      date,
+
+      // メモ
+      memo,
+    };
+
+    // transactionStorage.js の addTransaction を実行
+    addTransaction(transaction);
+
+    // 登録完了メッセージ
+    alert("登録しました");
+
+    // 入力欄をリセット
+    setType("expense");
+    setAmount("");
+    setCategory("");
+    setDate("");
+    setMemo("");
+  };
 
   return (
-    <section className="page">
-      <div className="page-title">
-        <p>収入・支出を追加</p>
-        <h2>入力画面</h2>
+    <div style={{ padding: "20px" }}>
+      <h2>取引追加</h2>
+
+      {/* 収入・支出選択 */}
+      <div>
+        <label>種別：</label>
+        <select value={type} onChange={(e) => setType(e.target.value)}>
+          <option value="income">収入</option>
+          <option value="expense">支出</option>
+        </select>
       </div>
 
-      <form className="form" onSubmit={handleSubmit}>
-        <label>
-          種類
-          <select name="type" value={form.type} onChange={handleChange}>
-            <option value="expense">支出</option>
-            <option value="income">収入</option>
-          </select>
-        </label>
+      <br />
 
-        <label>
-          金額
-          <input
-            name="amount"
-            type="number"
-            min="1"
-            inputMode="numeric"
-            value={form.amount}
-            onChange={handleChange}
-            placeholder="例: 1200"
-          />
-        </label>
+      {/* 金額入力 */}
+      <div>
+        <label>金額：</label>
+        <input
+          type="number"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          placeholder="金額を入力"
+        />
+      </div>
 
-        <label>
-          カテゴリ
-          <select name="category" value={form.category} onChange={handleChange}>
-            {categories.map((category) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-        </label>
+      <br />
 
-        <label>
-          日付
-          <input
-            name="date"
-            type="date"
-            value={form.date}
-            onChange={handleChange}
-          />
-        </label>
+      {/* カテゴリ選択 */}
+      <div>
+        <label>カテゴリ：</label>
+        <select
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          <option value="">選択してください</option>
+          <option value="食費">食費</option>
+          <option value="交通費">交通費</option>
+          <option value="娯楽">娯楽</option>
+          <option value="給料">給料</option>
+          <option value="その他">その他</option>
+        </select>
+      </div>
 
-        <label>
-          メモ
-          <textarea
-            name="memo"
-            value={form.memo}
-            onChange={handleChange}
-            placeholder="任意でメモを入力"
-          />
-        </label>
+      <br />
 
-        <button type="submit">登録する</button>
-        {message && <p className="form-message">{message}</p>}
-      </form>
-    </section>
-  )
+      {/* 日付入力 */}
+      <div>
+        <label>日付：</label>
+        <input
+          type="date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+        />
+      </div>
+
+      <br />
+
+      {/* メモ入力 */}
+      <div>
+        <label>メモ：</label>
+        <textarea
+          value={memo}
+          onChange={(e) => setMemo(e.target.value)}
+          placeholder="メモを入力"
+          rows={4}
+        />
+      </div>
+
+      <br />
+
+      {/* 追加ボタン */}
+      <button onClick={handleSubmit}>
+        追加
+      </button>
+    </div>
+  );
 }
 
-export default AddTransaction
+export default AddTransaction;
