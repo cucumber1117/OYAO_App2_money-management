@@ -249,10 +249,26 @@ button:hover {
   margin: 6px 0 2px;
 }
 
+.transaction-meta {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.transaction-date {
+  color: #6b7280;
+  font-size: 13px;
+}
+
 .transaction-item p {
   color: #6b7280;
   font-size: 14px;
   margin: 0;
+}
+
+.transaction-memo {
+  margin-top: 4px !important;
 }
 
 .recent-item {
